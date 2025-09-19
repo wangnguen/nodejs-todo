@@ -2,8 +2,12 @@
 	"name": "project-1",
 	"version": "1.0.0",
 	"main": "index.js",
+	"type": "commonjs",
 	"license": "MIT",
 	"scripts": {
 		"dev": "node --watch index.js"
+	},
+	"dependencies": {
+		"express": "^5.1.0"
 	}
 }

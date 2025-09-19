@@ -1,21 +1,15 @@
-const fs = require("fs");
+const express = require("express");
+const { loadTasksFromFile } = require("./task");
 
-const filePath = "./db/users.json";
+const app = express();
+const PORT = 3000;
 
-if (!filePath) {
-	console.error("Lỗi đường JSON");
-	process.exit(1);
-}
+app.use(express.json());
 
-fs.readFile(filePath, "utf8", (err, data) => {
-	if (err) {
-		console.error("Lỗi khi đọc file: ", err.message);
-		return;
-	}
-	try {
-		const jsonData = JSON.parse(data);
-		console.log(JSON.stringify(jsonData, null, 2));
-	} catch (parseErr) {
-		console.error("File không phải JSON hợp lệ!");
-	}
+app.get("/", (req, res) => {
+	res.json("Home Page");
+});
+
+app.listen(PORT, () => {
+	console.log(`Server đang chạy trên port ${PORT}`);
 });
