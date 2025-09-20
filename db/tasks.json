@@ -1,27 +1,27 @@
 [
-	{
-		"id": 1,
-		"name": "Mua rau",
-		"description": "Mua rau, thịt, trứng và sữa cho tuần này."
-	},
-	{
-		"id": 2,
-		"name": "Clean room",
-		"description": "Dọn dẹp phòng, lau bàn, sắp xếp tủ quần áo."
-	},
-	{
-		"id": 3,
-		"name": "Finish homework",
-		"description": "Hoàn thành bài tập môn Toán và Lập trình."
-	},
-	{
-		"id": 4,
-		"name": "Exercise",
-		"description": "Chạy bộ 30 phút và tập thể dục buổi sáng."
-	},
-	{
-		"id": 5,
-		"name": "Read a book",
-		"description": "Đọc ít nhất 30 trang sách kỹ năng cá nhân."
-	}
+  {
+    "id": 1,
+    "name": "Mua rau",
+    "description": "Mua rau, thịt, trứng và sữa cho tuần này."
+  },
+  {
+    "id": 2,
+    "name": "Dọn phòng",
+    "description": "Dọn dẹp phòng, lau bàn, sắp xếp tủ quần áo."
+  },
+  {
+    "id": 3,
+    "name": "Hoàn thành bài tập",
+    "description": "Hoàn thành bài tập môn Toán và Lập trình."
+  },
+  {
+    "id": 4,
+    "name": "Exercise",
+    "description": "Chạy bộ 30 phút và tập thể dục buổi sáng."
+  },
+  {
+    "id": 5,
+    "name": "Read a book",
+    "description": "Đọc ít nhất 30 trang sách kỹ năng cá nhân."
+  }
 ]
