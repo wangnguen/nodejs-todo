@@ -1,18 +1,8 @@
-const fs = require("fs").promises;
-const path = require("path");
+const { loadTasksFromFile, saveTasksToFile } = require("../models/task.model");
 
-const filePath = path.join(__dirname, "db", "tasks.json");
-
-const saveTasksToFile = async (tasks) => {
-	const dataJson = JSON.stringify(tasks, null, 2);
-	await fs.writeFile(filePath, dataJson, "utf8");
-	// Không swallow lỗi, để lỗi propagate lên caller
-};
-
-const loadTasksFromFile = async () => {
-	const data = await fs.readFile(filePath, "utf8");
-	return JSON.parse(data);
-	// Nếu lỗi sẽ throw lên caller
+const getAllTasks = async () => {
+	const tasks = await loadTasksFromFile();
+	return tasks;
 };
 
 const createTask = async (newTask) => {
@@ -48,7 +38,7 @@ const updateTask = async (updateTask) => {
 
 const deleteTask = async (id) => {
 	const tasks = await loadTasksFromFile();
-	const existTask = tasks.filePath((t) => t.id === +id);
+	const existTask = tasks.find((t) => t.id === +id);
 	if (!existTask) return false;
 	const newTasks = tasks.filter((t) => t.id !== +id);
 	await saveTasksToFile(newTasks);
@@ -56,8 +46,7 @@ const deleteTask = async (id) => {
 };
 
 module.exports = {
-	loadTasksFromFile,
-	saveTasksToFile,
+	getAllTasks,
 	createTask,
 	getTaskById,
 	updateTask,

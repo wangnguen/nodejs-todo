@@ -16,12 +16,17 @@
   },
   {
     "id": 4,
-    "name": "Exercise",
+    "name": "Tập thể dục",
     "description": "Chạy bộ 30 phút và tập thể dục buổi sáng."
   },
   {
     "id": 5,
-    "name": "Read a book",
+    "name": "Đọc sách",
     "description": "Đọc ít nhất 30 trang sách kỹ năng cá nhân."
+  },
+  {
+    "id": 6,
+    "name": "Đi chợ",
+    "description": "Đi mua nhiều đồ"
   }
 ]
