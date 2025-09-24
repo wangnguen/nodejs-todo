@@ -1,47 +1,37 @@
-const { loadTasksFromFile, saveTasksToFile } = require("../models/task.model");
+const Task = require("../models/task.model");
 
 const getAllTasks = async () => {
-	const tasks = await loadTasksFromFile();
+	const tasks = await Task.find({}).lean();
 	return tasks;
 };
 
 const createTask = async (newTask) => {
-	const tasks = await loadTasksFromFile();
-	const newId = +newTask.id;
-	const existTask = tasks.find((task) => +task.id === newId);
-	if (existTask) {
-		throw new Error("Id đã tồn tại !");
-	}
-	const taskToStore = Object.assign({}, newTask, { id: newId });
-	tasks.push(taskToStore);
-	await saveTasksToFile(tasks);
-	return taskToStore;
+	const newRecord = new Task(newTask);
+	const savedRecord = await newRecord.save();
+	return savedRecord;
 };
 
 const getTaskById = async (id) => {
-	const tasks = await loadTasksFromFile();
-	const existTask = tasks.find((task) => +task.id === +id);
-	return existTask || null;
+	const existTask = await Task.findOne({
+		_id: id,
+	}).lean();
+	return existTask;
 };
 
 const updateTask = async (updateTask) => {
-	const tasks = await loadTasksFromFile();
-	const id = +updateTask.id;
-	const existTask = tasks.find((task) => +task.id === id);
-	if (existTask) {
-		Object.assign(existTask, Object.assign({}, updateTask, { id }));
-		await saveTasksToFile(tasks);
-		return existTask;
-	}
-	return null;
+	const existTask = await Task.findOneAndUpdate(
+		{ _id: updateTask.id },
+		updateTask,
+	);
+	return existTask;
 };
 
 const deleteTask = async (id) => {
-	const tasks = await loadTasksFromFile();
-	const existTask = tasks.find((t) => t.id === +id);
+	const existTask = Task.findOne({
+		_id: id,
+	});
 	if (!existTask) return false;
-	const newTasks = tasks.filter((t) => t.id !== +id);
-	await saveTasksToFile(newTasks);
+	await Task.deleteOne({ _id: id });
 	return true;
 };
 
