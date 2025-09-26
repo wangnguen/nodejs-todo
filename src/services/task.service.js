@@ -1,47 +1,45 @@
-const { loadTasksFromFile, saveTasksToFile } = require("../models/task.model");
+const { where } = require("sequelize");
+const { task } = require("../database/models");
 
 const getAllTasks = async () => {
-	const tasks = await loadTasksFromFile();
+	const tasks = await task.findAll();
 	return tasks;
 };
 
 const createTask = async (newTask) => {
-	const tasks = await loadTasksFromFile();
-	const newId = +newTask.id;
-	const existTask = tasks.find((task) => +task.id === newId);
-	if (existTask) {
-		throw new Error("Id đã tồn tại !");
-	}
-	const taskToStore = Object.assign({}, newTask, { id: newId });
-	tasks.push(taskToStore);
-	await saveTasksToFile(tasks);
+	const taskToStore = await task.create(newTask);
 	return taskToStore;
 };
 
 const getTaskById = async (id) => {
-	const tasks = await loadTasksFromFile();
-	const existTask = tasks.find((task) => +task.id === +id);
+	const existTask = await task.findOne({
+		where: {
+			id,
+		},
+	});
 	return existTask || null;
 };
 
-const updateTask = async (updateTask) => {
-	const tasks = await loadTasksFromFile();
-	const id = +updateTask.id;
-	const existTask = tasks.find((task) => +task.id === id);
-	if (existTask) {
-		Object.assign(existTask, Object.assign({}, updateTask, { id }));
-		await saveTasksToFile(tasks);
-		return existTask;
-	}
-	return null;
+const updateTask = async (data) => {
+	const { id, ...updateData } = data;
+
+	const [affectedRows] = await task.update(updateData, {
+		where: { id: +id },
+	});
+
+	if (affectedRows === 0) return null;
+
+	return await task.findByPk(id);
 };
 
 const deleteTask = async (id) => {
-	const tasks = await loadTasksFromFile();
-	const existTask = tasks.find((t) => t.id === +id);
+	const existTask = await task.findOne({
+		while: {
+			id: +id,
+		},
+	});
 	if (!existTask) return false;
-	const newTasks = tasks.filter((t) => t.id !== +id);
-	await saveTasksToFile(newTasks);
+	await task.destroy({ where: { id: +id } });
 	return true;
 };
 
