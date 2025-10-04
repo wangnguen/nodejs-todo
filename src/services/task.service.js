@@ -22,12 +22,13 @@ const updateTask = async (updateTask) => {
 	const existTask = await Task.findOneAndUpdate(
 		{ _id: updateTask.id },
 		updateTask,
+		{ new: true },
 	);
 	return existTask;
 };
 
 const deleteTask = async (id) => {
-	const existTask = Task.findOne({
+	const existTask = await Task.findOne({
 		_id: id,
 	});
 	if (!existTask) return false;

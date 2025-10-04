@@ -1,6 +1,7 @@
 const httpStatusCode = require("http-status-codes");
 
 const taskService = require("../services/task.service");
+const ErrorRespone = require("../helpers/ErrorRespone");
 
 const getAllTasks = async (req, res) => {
 	const tasks = await taskService.getAllTasks();
@@ -13,9 +14,7 @@ const getTaskById = async (req, res) => {
 	if (task) {
 		res.status(httpStatusCode.OK).json({ task });
 	} else {
-		res
-			.status(httpStatusCode.NOT_FOUND)
-			.json({ message: "Không tìm thấy task !" });
+		throw new ErrorRespone(httpStatusCode.NOT_FOUND, "Không tìm thấy task !");
 	}
 };
 
@@ -35,9 +34,7 @@ const patchUpdateTask = async (req, res) => {
 			.status(httpStatusCode.OK)
 			.json({ message: "Cập nhật task thành công !", result });
 	} else {
-		res
-			.status(httpStatusCode.NOT_FOUND)
-			.json({ message: "Không tìm thấy task !" });
+		throw new ErrorRespone(httpStatusCode.NOT_FOUND, "Không tìm thấy task !");
 	}
 };
 
@@ -47,9 +44,7 @@ const deleteTask = async (req, res) => {
 	if (ok) {
 		res.status(httpStatusCode.OK).json({ message: "Xóa task thành công !" });
 	} else {
-		res
-			.status(httpStatusCode.NOT_FOUND)
-			.json({ message: "Không tìm thấy task !" });
+		throw new ErrorRespone(httpStatusCode.NOT_FOUND, "Không tìm thấy task !");
 	}
 };
 
