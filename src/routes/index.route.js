@@ -4,8 +4,13 @@ const router = express.Router();
 
 const homeRoute = require("./home.route");
 const taskRoute = require("./task.route");
+const userRoute = require("./user.route");
+const { isAuth } = require("../middlewares/auth");
+
+router.use("/user", userRoute);
 
 router.use("/", homeRoute);
+router.use(isAuth);
 router.use("/task", taskRoute);
 
 router.use((req, res) => {

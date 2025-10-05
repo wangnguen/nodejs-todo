@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const helmet = require("helmet");
 const morgan = require("morgan");
-
+const cookieParser = require("cookie-parser");
 const app = express();
 
 const clientRoute = require("./routes/index.route");
@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // middleware
 app.use(helmet());
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 // static files
 app.use(express.static(path.join(__dirname, "..", "public")));
