@@ -6,6 +6,9 @@ const homeRoute = require("./home.route");
 const taskRoute = require("./task.route");
 const userRoute = require("./user.route");
 const { isAuth } = require("../middlewares/auth");
+const { apiLimiter } = require("../helpers/rateLimit");
+
+router.use(apiLimiter);
 
 router.use("/user", userRoute);
 
