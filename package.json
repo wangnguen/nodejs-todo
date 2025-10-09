@@ -4,8 +4,10 @@
 	"main": "index.js",
 	"type": "commonjs",
 	"license": "MIT",
+	"types": "modul",
 	"scripts": {
-		"dev": "node --watch index.js"
+		"dev": "node --watch index.js",
+		"test": "jest --runInBand"
 	},
 	"dependencies": {
 		"bcryptjs": "^3.0.2",
@@ -20,6 +22,8 @@
 		"pug": "^3.0.3"
 	},
 	"devDependencies": {
-		"morgan": "^1.10.1"
+		"jest": "^30.2.0",
+		"morgan": "^1.10.1",
+		"supertest": "^7.1.4"
 	}
 }
